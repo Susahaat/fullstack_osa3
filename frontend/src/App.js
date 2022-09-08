@@ -27,9 +27,17 @@ const App = () => {
       number: newNumber,
     };
     if (names.includes(newName)) {
-      setErrorMessage(`${newName} is already added to phonebook`);
+      const accept = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      );
+
+      if (accept) {
+        const updatePerson = persons.find((person) => person.name === newName);
+        personService.update(updatePerson.id, personObject);
+      }
+      setConfirmationMessage("Person updated");
       setTimeout(() => {
-        setErrorMessage(null);
+        setConfirmationMessage(null);
       }, 5000);
     } else {
       setPersons(persons.concat(personObject));
