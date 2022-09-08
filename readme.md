@@ -1,1 +1,1 @@
-Sovellus toiminnassa osoitteessa https://fullstack2021puhelinluettelo.herokuapp.com/
+Sovellus toiminnassa osoitteessa https://puhelinluettelofullstack.fly.dev/
