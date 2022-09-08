@@ -34,11 +34,16 @@ const App = () => {
       if (accept) {
         const updatePerson = persons.find((person) => person.name === newName);
         personService.update(updatePerson.id, personObject);
+        setConfirmationMessage("Person updated");
+        setTimeout(() => {
+          setConfirmationMessage(null);
+        }, 5000);
+      } else {
+        setConfirmationMessage("Did not update.");
+        setTimeout(() => {
+          setConfirmationMessage(null);
+        }, 5000);
       }
-      setConfirmationMessage("Person updated");
-      setTimeout(() => {
-        setConfirmationMessage(null);
-      }, 5000);
     } else {
       setPersons(persons.concat(personObject));
       setNewName("");
