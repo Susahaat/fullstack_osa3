@@ -45,16 +45,23 @@ const App = () => {
         }, 5000);
       }
     } else {
-      setPersons(persons.concat(personObject));
       setNewName("");
       setNewNumber("");
-      personService.create(personObject).then((newPerson) => {
-        setPersons(persons.concat(newPerson));
-      });
-      setConfirmationMessage(`${newName} added`);
-      setTimeout(() => {
-        setConfirmationMessage(null);
-      }, 5000);
+      personService
+        .create(personObject)
+        .then((newPerson) => {
+          setPersons(persons.concat(newPerson));
+          setConfirmationMessage(`${newName} added`);
+          setTimeout(() => {
+            setConfirmationMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setErrorMessage(`${error.response.data.error}`);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        });
     }
   };
 
@@ -62,6 +69,9 @@ const App = () => {
     const accept = window.confirm(`Do you want to delete this person?`);
     if (accept) {
       personService.remove(person);
+      const index = persons.indexOf(person);
+      persons.splice(index, 1);
+      setPersons(persons);
       setConfirmationMessage(`Person deleted.`);
       setTimeout(() => {
         setConfirmationMessage(null);
