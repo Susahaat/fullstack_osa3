@@ -32,6 +32,8 @@ const App = () => {
       );
 
       if (accept) {
+        setNewName("");
+        setNewNumber("");
         const updatePerson = persons.find((person) => person.name === newName);
         personService.update(updatePerson.id, personObject);
         setConfirmationMessage("Person updated");
